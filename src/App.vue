@@ -1,21 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <raktar :Tablazat="Tablazat" @Tabla-hozzaadas="Created" @Tabla-valtoztatas="Changed" @Tabla-torles="Deleted" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import raktar from './components/VueRaktar.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    raktar
   },
   data() {
     return {
-      rows: [
+      Tablazat: [
         {
           title: 'Kerék',
           price: 100,
@@ -38,8 +37,18 @@ export default {
         },
       ]
     }
+  },
+  methods: {
+    Created(e){
+        this.Tablazat.push({title: e.title, price: e.price, quantity: e.quantity})
+    },
+    Deleted(e){
+      this.Tablazat.splice(this.Tablazat.indexOf(e.original), 1);
+      }
+    }
   }
-}
+
+
 </script>
 
 <style>
